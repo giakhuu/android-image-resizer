@@ -3,6 +3,39 @@ function initializeFigmaTempExport() {
   figmaTempRootBtn.disabled = !isSupported;
   figmaStatus.textContent = isSupported ? FIGMA_TEMP_NOT_SELECTED_META : FIGMA_TEMP_UNSUPPORTED_META;
   updateActionButtons();
+  loadEnvConfig();
+}
+
+async function loadEnvConfig() {
+  if (window.ENV && window.ENV.FIGMA_PERSONAL_ACCESS_TOKEN) {
+    envFigmaToken = window.ENV.FIGMA_PERSONAL_ACCESS_TOKEN.trim();
+  }
+
+  if (!envFigmaToken) {
+    try {
+      const response = await fetch(".env");
+      if (response.ok) {
+        const text = await response.text();
+        const lines = text.split("\n");
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith("#")) continue;
+          const [key, ...valParts] = trimmed.split("=");
+          if (key && (key.trim() === "FIGMA_PERSONAL_ACCESS_TOKEN" || key.trim() === "FIGMA_TOKEN")) {
+            envFigmaToken = valParts.join("=").trim();
+          }
+        }
+      }
+    } catch (error) {
+      // Silent fail if .env is missing or CORS restricted under file://
+    }
+  }
+
+  if (envFigmaToken && figmaTokenInput) {
+    figmaTokenInput.placeholder = "✓ Configured in .env (leave blank)";
+    const badge = document.getElementById("envTokenBadge");
+    if (badge) badge.style.display = "inline-flex";
+  }
 }
 
 function addFigmaLinkFromInputs() {
@@ -156,7 +189,7 @@ async function fetchFigmaPngBlob(item) {
 }
 
 function getFigmaToken() {
-  const token = figmaTokenInput.value.trim();
+  const token = figmaTokenInput.value.trim() || envFigmaToken;
   if (!token) throw new Error(FIGMA_TOKEN_REQUIRED_MESSAGE);
   return token;
 }

@@ -1,2 +1,5 @@
 .codegraph/
 .DS_Store
+.env
+env.js
+.skills/

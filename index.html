@@ -4,98 +4,191 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Android Image Resizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="shell">
-    <section class="workspace" aria-label="Android image resizer">
-      <aside class="panel controls">
+  <!-- Top App Header -->
+  <header class="appBar">
+    <div class="headerContainer">
+      <div class="brand">
+        <div class="brandIcon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+        </div>
         <div>
-          <p class="eyebrow">Android assets</p>
-          <h1>Image Resizer</h1>
+          <h1 class="brandTitle">Android Image Resizer</h1>
+          <p class="brandSubtitle">Generate mdpi, hdpi, xhdpi, xxhdpi & xxxhdpi assets</p>
         </div>
+      </div>
+      <div class="headerMeta">
+        <span class="badge">Flat White & Blue UI</span>
+      </div>
+    </div>
+  </header>
 
-        <label class="dropzone" id="dropzone">
-          <input id="fileInput" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml">
-          <span class="dropIcon">+</span>
-          <span class="dropTitle">Choose or drop images here</span>
-          <span class="dropMeta">PNG, JPG, WEBP, SVG</span>
-        </label>
-
-        <div class="figmaSource">
-          <div class="field">
-            <label for="figmaToken">Figma token</label>
-            <input id="figmaToken" type="password" autocomplete="off" placeholder="Paste personal access token">
+  <main class="shell">
+    <div class="workspace">
+      <!-- Column 1: Choose Source Only -->
+      <aside class="panel importPanel">
+        <div class="card importCard">
+          <div class="tabHeader" role="tablist">
+            <button type="button" class="tabBtn active" id="tabUploadBtn" data-tab="tabUploadPanel">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>Local Files</span>
+            </button>
+            <button type="button" class="tabBtn" id="tabFigmaBtn" data-tab="tabFigmaPanel">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"></path>
+                <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"></path>
+                <path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"></path>
+                <path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"></path>
+                <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"></path>
+              </svg>
+              <span>Figma Import</span>
+            </button>
           </div>
 
-          <div class="field">
-            <label for="figmaUrl">Figma item link</label>
-            <input id="figmaUrl" type="url" placeholder="https://www.figma.com/design/...">
+          <div class="tabBody">
+            <!-- Panel 1: Local File Upload -->
+            <div class="tabPanel active" id="tabUploadPanel">
+              <label class="dropzone" id="dropzone">
+                <input id="fileInput" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml">
+                <div class="dropIconContainer">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                </div>
+                <span class="dropTitle">Choose or drop images</span>
+                <span class="dropMeta">PNG, JPG, WEBP, SVG, GIF, BMP</span>
+              </label>
+            </div>
+
+            <!-- Panel 2: Figma Import -->
+            <div class="tabPanel" id="tabFigmaPanel">
+              <div class="figmaSource">
+                <div class="field">
+                  <div class="labelRow">
+                    <label for="figmaToken">Figma personal access token</label>
+                    <span id="envTokenBadge" class="envBadge" style="display: none;">✓ Loaded from .env</span>
+                  </div>
+                  <input id="figmaToken" type="password" autocomplete="off" placeholder="figd_...">
+                </div>
+
+                <div class="field">
+                  <label for="figmaUrl">Figma file / item link</label>
+                  <input id="figmaUrl" type="url" placeholder="https://www.figma.com/design/...">
+                </div>
+
+                <div class="figmaActions">
+                  <button class="secondary neutral" id="figmaTempRootBtn" type="button" style="display: none;">
+                    Choose temp folder
+                  </button>
+                  <button class="secondary neutral" id="figmaPreviewBtn" type="button" style="display: none;">
+                    Download preview
+                  </button>
+                  <button class="primary compact" id="figmaAddBtn" type="button">
+                    Add Figma link
+                  </button>
+                </div>
+
+                <p id="figmaStatus" class="statusNotice" style="display: none;">No image_temp folder selected.</p>
+              </div>
+            </div>
           </div>
-
-          <div class="figmaActions">
-            <button class="secondary neutral" id="figmaTempRootBtn" type="button">
-              Choose temp root
-            </button>
-            <button class="secondary neutral" id="figmaPreviewBtn" type="button">
-              Download preview
-            </button>
-            <button class="primary compact" id="figmaAddBtn" type="button">
-              Add Figma link
-            </button>
-          </div>
-
-          <p id="figmaStatus">No image_temp folder selected.</p>
-        </div>
-
-        <div class="fileList" id="fileList"></div>
-
-        <button class="secondary" id="clearAllBtn" disabled type="button">
-          Clear all
-        </button>
-
-        <div class="field">
-          <label for="quality">WebP quality <span id="qualityValue">92%</span></label>
-          <input id="quality" type="range" min="50" max="100" value="92">
-        </div>
-
-        <label class="toggle">
-          <input id="includeDefault" type="checkbox" checked>
-          <span>Include default file in `drawable/`</span>
-        </label>
-
-        <label class="toggle">
-          <input id="deleteAfterSave" type="checkbox">
-          <span>Delete after save</span>
-        </label>
-
-        <div class="folderTarget">
-          <button class="secondary neutral" id="folderBtn" type="button">
-            Choose Android project/res
-          </button>
-          <p id="folderStatus">No Android folder selected.</p>
-        </div>
-
-        <div class="exportActions">
-          <button class="primary" id="saveProjectBtn" disabled type="button">
-            Save to Android res
-          </button>
-
-          <button class="secondary neutral" id="downloadBtn" disabled type="button">
-            Download ZIP
-          </button>
         </div>
       </aside>
 
-      <section class="previewArea">
+      <!-- Column 2: Loaded Source Assets List & Export Config/Actions -->
+      <section class="panel listPanel">
+        <!-- Loaded Assets Section -->
+        <div class="fileListSection">
+          <div class="sectionHeader">
+            <span class="sectionTitle">Loaded Source Assets</span>
+            <button class="textLinkDanger" id="clearAllBtn" disabled type="button">
+              Clear all
+            </button>
+          </div>
+          <div class="fileList" id="fileList"></div>
+        </div>
+
+        <!-- Conversion & Export Settings -->
+        <div class="card settingsCard">
+          <div class="field">
+            <div class="labelRow">
+              <label for="quality">WebP Quality</label>
+              <span id="qualityValue" class="qualityBadge">90%</span>
+            </div>
+            <input id="quality" type="range" min="50" max="100" value="90">
+          </div>
+
+          <label class="toggle">
+            <input id="includeDefault" type="checkbox" checked>
+            <span>Include default file in <code>drawable/</code></span>
+          </label>
+
+          <label class="toggle">
+            <input id="deleteAfterSave" type="checkbox">
+            <span>Delete temporary files after save</span>
+          </label>
+        </div>
+
+        <!-- Target Android Directory & Export Actions -->
+        <div class="card exportCard">
+          <div class="folderTarget">
+            <label class="fieldLabel">Target Android Project Directory</label>
+            <button class="secondary neutral folderSelectBtn" id="folderBtn" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>Select Android res/ folder</span>
+            </button>
+            <div id="folderStatus" class="folderStatusText">No Android res/ directory selected.</div>
+          </div>
+
+          <div class="exportActions">
+            <button class="primary exportPrimaryBtn" id="saveProjectBtn" disabled type="button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              <span>Save to Android res</span>
+            </button>
+
+            <button class="secondary neutral downloadZipBtn" id="downloadBtn" disabled type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download ZIP</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Column 3: Image Preview & Density Grid -->
+      <section class="panel previewArea">
         <div class="previewHeader">
-          <div>
-            <p class="eyebrow">Preview</p>
+          <div class="previewHeaderInfo">
+            <span class="previewCategoryTag">Asset Preview</span>
             <h2 id="statusTitle">No image selected</h2>
+            <p id="statusMeta" class="statusMeta">Output will calculate mdpi to xxxhdpi from source resolution.</p>
           </div>
           <div class="previewTools">
-            <p id="statusMeta">Output will use each original image as `xxxhdpi`.</p>
-            <label class="previewSelectLabel" for="previewSelect">Preview image</label>
+            <label class="previewSelectLabel" for="previewSelect">Select Image</label>
             <select id="previewSelect" disabled>
               <option>No image selected</option>
             </select>
@@ -103,15 +196,26 @@
         </div>
 
         <div class="previewShell">
-          <img id="previewImage" alt="">
-          <span id="emptyState">Drop image here</span>
+          <img id="previewImage" alt="Asset Preview">
+          <div id="emptyState" class="emptyStateContainer">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3" ry="3"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            <span>Select or drop an image to preview density scaling</span>
+          </div>
         </div>
 
-        <div class="densityList" id="densityList"></div>
+        <div class="densitySection">
+          <h3 class="densityHeading">Generated Android Density Specs</h3>
+          <div class="densityList" id="densityList"></div>
+        </div>
       </section>
-    </section>
+    </div>
   </main>
 
+  <script src="env.js"></script>
   <script src="scripts/constants.js"></script>
   <script src="scripts/dom-state.js"></script>
   <script src="scripts/utils.js"></script>

@@ -31,3 +31,4 @@ let androidResHandle = null;
 let androidResDisplayName = EMPTY_STRING;
 let figmaTempDirectoryHandle = null;
 let figmaTempDisplayName = EMPTY_STRING;
+let envFigmaToken = EMPTY_STRING;

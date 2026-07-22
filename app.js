@@ -12,6 +12,19 @@ function renderInitialState() {
 }
 
 function bindEventListeners() {
+  const tabBtns = document.querySelectorAll(".tabBtn");
+  const tabPanels = document.querySelectorAll(".tabPanel");
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tabBtns.forEach((b) => b.classList.remove("active"));
+      tabPanels.forEach((p) => p.classList.remove("active"));
+      btn.classList.add("active");
+      const targetPanelId = btn.getAttribute("data-tab");
+      const targetPanel = document.getElementById(targetPanelId);
+      if (targetPanel) targetPanel.classList.add("active");
+    });
+  });
+
   dropzone.addEventListener("click", handleDropzoneClick);
   fileInput.addEventListener("change", handleFileInputChange);
   dropzone.addEventListener("dragover", handleDropzoneDragOver);
