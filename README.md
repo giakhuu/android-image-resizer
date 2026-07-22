@@ -32,6 +32,14 @@ Each original image is treated as the `xxxhdpi` size. The default `drawable/` ou
 Use the `Preview image` selector, or click a file in the left list, to switch the preview and density table.
 Name inputs allow any text while editing. Exported drawable file names are still normalized to Android-safe resource names.
 
+## Figma links
+
+Run the tool from localhost in Chrome or Edge when you want downloaded Figma PNG files to be written into a real `image_temp` folder. Press `Choose temp root` and select the project root; the tool creates `image_temp` inside that folder.
+
+Paste a Figma personal access token and a Figma item link that includes `node-id`, then press `Add Figma link`. Figma items stay blank in preview until you press `Download preview`; export also downloads the PNG 4x automatically if preview was not downloaded first.
+
+After resize/export finishes, Figma temp files are deleted automatically and the preview becomes blank again for those Figma items.
+
 Scale rules:
 
 - `mdpi`: `1x`

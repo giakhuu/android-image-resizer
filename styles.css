@@ -148,7 +148,9 @@ h2 {
   font-weight: 700;
 }
 
-.field input[type="text"] {
+.field input[type="password"],
+.field input[type="text"],
+.field input[type="url"] {
   width: 100%;
   height: 44px;
   padding: 0 12px;
@@ -211,6 +213,15 @@ select {
   border: 1px solid var(--line);
 }
 
+.fileThumbEmpty {
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
 .fileMeta {
   display: grid;
   gap: 8px;
@@ -224,6 +235,17 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.fileInlineActions {
+  display: flex;
+  gap: 8px;
+}
+
+.fileInlineActions button {
+  height: 34px;
+  padding: 0 10px;
+  font-size: 12px;
 }
 
 .deleteImageBtn {
@@ -257,6 +279,34 @@ select {
   height: 18px;
   margin: 0;
   accent-color: var(--accent);
+}
+
+.figmaSource {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.figmaActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.figmaActions .compact {
+  grid-column: 1 / -1;
+  height: 42px;
+}
+
+.figmaSource p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .folderTarget {
@@ -408,6 +458,10 @@ select {
   padding: 14px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.76);
+}
+
+.densityItem.full {
+  grid-column: 1 / -1;
 }
 
 .densityName {

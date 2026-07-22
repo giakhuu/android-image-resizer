@@ -22,6 +22,32 @@
           <span class="dropMeta">PNG, JPG, WEBP, SVG</span>
         </label>
 
+        <div class="figmaSource">
+          <div class="field">
+            <label for="figmaToken">Figma token</label>
+            <input id="figmaToken" type="password" autocomplete="off" placeholder="Paste personal access token">
+          </div>
+
+          <div class="field">
+            <label for="figmaUrl">Figma item link</label>
+            <input id="figmaUrl" type="url" placeholder="https://www.figma.com/design/...">
+          </div>
+
+          <div class="figmaActions">
+            <button class="secondary neutral" id="figmaTempRootBtn" type="button">
+              Choose temp root
+            </button>
+            <button class="secondary neutral" id="figmaPreviewBtn" type="button">
+              Download preview
+            </button>
+            <button class="primary compact" id="figmaAddBtn" type="button">
+              Add Figma link
+            </button>
+          </div>
+
+          <p id="figmaStatus">No image_temp folder selected.</p>
+        </div>
+
         <div class="fileList" id="fileList"></div>
 
         <button class="secondary" id="clearAllBtn" disabled type="button">
