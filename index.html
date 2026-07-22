@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Android Image Resizer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="workspace" aria-label="Android image resizer">
+      <aside class="panel controls">
+        <div>
+          <p class="eyebrow">Android assets</p>
+          <h1>Image Resizer</h1>
+        </div>
+
+        <label class="dropzone" id="dropzone">
+          <input id="fileInput" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml">
+          <span class="dropIcon">+</span>
+          <span class="dropTitle">Choose or drop images here</span>
+          <span class="dropMeta">PNG, JPG, WEBP, SVG</span>
+        </label>
+
+        <div class="fileList" id="fileList"></div>
+
+        <button class="secondary" id="clearAllBtn" disabled type="button">
+          Clear all
+        </button>
+
+        <div class="field">
+          <label for="quality">WebP quality <span id="qualityValue">92%</span></label>
+          <input id="quality" type="range" min="50" max="100" value="92">
+        </div>
+
+        <label class="toggle">
+          <input id="includeDefault" type="checkbox" checked>
+          <span>Include default file in `drawable/`</span>
+        </label>
+
+        <label class="toggle">
+          <input id="deleteAfterSave" type="checkbox">
+          <span>Delete after save</span>
+        </label>
+
+        <div class="folderTarget">
+          <button class="secondary neutral" id="folderBtn" type="button">
+            Choose Android project/res
+          </button>
+          <p id="folderStatus">No Android folder selected.</p>
+        </div>
+
+        <div class="exportActions">
+          <button class="primary" id="saveProjectBtn" disabled type="button">
+            Save to Android res
+          </button>
+
+          <button class="secondary neutral" id="downloadBtn" disabled type="button">
+            Download ZIP
+          </button>
+        </div>
+      </aside>
+
+      <section class="previewArea">
+        <div class="previewHeader">
+          <div>
+            <p class="eyebrow">Preview</p>
+            <h2 id="statusTitle">No image selected</h2>
+          </div>
+          <div class="previewTools">
+            <p id="statusMeta">Output will use each original image as `xxxhdpi`.</p>
+            <label class="previewSelectLabel" for="previewSelect">Preview image</label>
+            <select id="previewSelect" disabled>
+              <option>No image selected</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="previewShell">
+          <img id="previewImage" alt="">
+          <span id="emptyState">Drop image here</span>
+        </div>
+
+        <div class="densityList" id="densityList"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

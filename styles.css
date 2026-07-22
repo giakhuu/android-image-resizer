@@ -1,0 +1,485 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f5f0;
+  --surface: #ffffff;
+  --surface-strong: #eef3f6;
+  --text: #1e2529;
+  --muted: #65717a;
+  --line: #d7dde0;
+  --accent: #11756b;
+  --accent-dark: #0c5952;
+  --accent-soft: #dcefeb;
+  --danger: #b6472d;
+  --shadow: 0 18px 60px rgba(30, 37, 41, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #f4f5f0 0%, #e8eef1 46%, #f7f1e9 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+
+.workspace {
+  width: min(1160px, 100%);
+  min-height: min(760px, calc(100vh - 64px));
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.panel {
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: 34px;
+  line-height: 1.08;
+}
+
+h2 {
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.dropzone {
+  min-height: 168px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  border: 1px dashed #93a5ad;
+  background: var(--surface-strong);
+  cursor: pointer;
+}
+
+.dropzone.dragging {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.dropzone input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.dropIcon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 50%;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.dropTitle {
+  display: block;
+  font-weight: 800;
+}
+
+.dropMeta {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label,
+.toggle {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field input[type="text"] {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: #fff;
+  outline: none;
+}
+
+select {
+  height: 44px;
+  padding: 0 36px 0 12px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: #fff;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(17, 117, 107, 0.14);
+}
+
+.field input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.fileList {
+  flex: 1;
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.fileItem {
+  position: relative;
+  display: grid;
+  grid-template-columns: 54px 1fr 34px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+}
+
+.fileItem.active {
+  border-color: var(--accent);
+  box-shadow: inset 4px 0 0 var(--accent);
+}
+
+.fileThumb {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+}
+
+.fileMeta {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fileName {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deleteImageBtn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  color: var(--danger);
+  font-size: 24px;
+  line-height: 1;
+  border: 1px solid rgba(182, 71, 45, 0.24);
+  background: #fff7f4;
+  cursor: pointer;
+}
+
+.deleteImageBtn:hover {
+  color: #fff;
+  background: var(--danger);
+}
+
+.toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.toggle input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.folderTarget {
+  display: grid;
+  gap: 8px;
+}
+
+.folderTarget p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.exportActions {
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.primary {
+  height: 48px;
+  color: #fff;
+  font-weight: 800;
+  border: 0;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+.primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.secondary {
+  height: 42px;
+  color: var(--danger);
+  font-weight: 800;
+  border: 1px solid rgba(182, 71, 45, 0.28);
+  background: #fff7f4;
+  cursor: pointer;
+}
+
+.secondary:hover:not(:disabled) {
+  color: #fff;
+  background: var(--danger);
+}
+
+.secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.secondary.neutral {
+  color: var(--accent);
+  border-color: rgba(17, 117, 107, 0.28);
+  background: var(--accent-soft);
+}
+
+.secondary.neutral:hover:not(:disabled) {
+  color: #fff;
+  background: var(--accent);
+}
+
+.previewArea {
+  display: grid;
+  grid-template-rows: auto minmax(280px, 1fr) auto;
+  gap: 24px;
+  padding: 32px;
+}
+
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.previewHeader p:last-child {
+  max-width: 360px;
+  margin: 0;
+  color: var(--muted);
+  text-align: right;
+}
+
+.previewTools {
+  width: min(360px, 42%);
+  display: grid;
+  gap: 8px;
+  justify-items: stretch;
+}
+
+.previewTools p {
+  margin: 0;
+  color: var(--muted);
+  text-align: right;
+}
+
+.previewSelectLabel {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.previewShell {
+  position: relative;
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(45deg, #e2e7e9 25%, transparent 25%),
+    linear-gradient(-45deg, #e2e7e9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e2e7e9 75%),
+    linear-gradient(-45deg, transparent 75%, #e2e7e9 75%);
+  background-color: #f8fafb;
+  background-position: 0 0, 0 14px, 14px -14px, -14px 0;
+  background-size: 28px 28px;
+}
+
+#previewImage {
+  max-width: min(74%, 560px);
+  max-height: 74%;
+  display: none;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 28px rgba(30, 37, 41, 0.18));
+}
+
+#emptyState {
+  color: #7a868d;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.densityList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.densityItem {
+  min-height: 86px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.densityName {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.densitySize {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.densityPath {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  color: var(--danger);
+}
+
+@media (max-width: 860px) {
+  .shell {
+    padding: 16px;
+    place-items: start center;
+  }
+
+  .workspace {
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .controls,
+  .previewArea {
+    padding: 22px;
+  }
+
+  .previewHeader {
+    display: block;
+  }
+
+  .previewHeader p:last-child {
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .previewTools {
+    width: 100%;
+    margin-top: 14px;
+  }
+
+  .previewTools p {
+    text-align: left;
+  }
+
+  .previewShell {
+    min-height: 280px;
+  }
+
+  .densityList {
+    grid-template-columns: 1fr;
+  }
+}
