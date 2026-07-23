@@ -13,7 +13,7 @@ Local tool to choose one or more images, convert them to WebP, and resize them i
 
 Open `index.html` in a browser, drop images, adjust each resource name and `WebP quality`, then press `Download ZIP`.
 
-To write files directly into an Android project, run the tool from localhost in Chrome or Edge:
+To write files directly into an Android project, run the tool from localhost in Chrome, Edge, or Brave:
 
 ```sh
 python3 -m http.server 8000
